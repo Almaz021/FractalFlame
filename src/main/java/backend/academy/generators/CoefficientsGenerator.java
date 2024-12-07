@@ -7,6 +7,10 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class CoefficientsGenerator {
 
+    /**
+     * Generates affine transformation coefficients for the specified number of transformations.
+     * Each transformation consists of 6 random coefficients that satisfy certain conditions.
+     */
     public static double[][] getAffineCoefficients(int n, double min, double max, SecureRandom random) {
         double[][] coefficients = new double[n][Settings.COEFFICIENTS_COUNT];
 
@@ -37,6 +41,9 @@ public class CoefficientsGenerator {
         return coefficients;
     }
 
+    /**
+     * Generates random RGB color values for the specified number of colors.
+     */
     public static int[][] getColors(int n, SecureRandom random) {
         int[][] colors = new int[n][Settings.RGB_COLORS_COUNT];
         for (int i = 0; i < n; i++) {
@@ -48,6 +55,9 @@ public class CoefficientsGenerator {
         return colors;
     }
 
+    /**
+     * Checks if the affine transformation coefficients satisfy certain conditions.
+     */
     private static boolean checkConditions(double a, double b, double d, double e) {
         return ((a * a + d * d) < 1) && ((b * b + e * e) < 1)
                && ((a * a + b * b + d * d + e * e) < (1 + (a * e - b * d) * (a * e - b * d)));

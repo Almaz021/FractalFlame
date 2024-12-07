@@ -13,11 +13,15 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class ImageCreateService {
 
+    /**
+     * Saves the fractal image to a file in the specified format.
+     */
     public void save(FractalImage image, Path filename, String format) throws IOException {
         int w = image.xRes();
         int h = image.yRes();
         BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
 
+        /* Convert the fractal image data to a BufferedImage */
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
                 int rgb = getRgb(image, i, j);
@@ -25,10 +29,14 @@ public final class ImageCreateService {
             }
         }
 
+        /* Save the BufferedImage to the file */
         File outputFile = filename.toFile();
         ImageIO.write(bi, format, outputFile);
     }
 
+    /**
+     * Converts a pixel in the fractal image to an RGB value.
+     */
     private static int getRgb(FractalImage image, int i, int j) {
         Pixel pixel = image.data()[i][j];
 

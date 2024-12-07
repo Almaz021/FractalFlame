@@ -34,6 +34,10 @@ import lombok.RequiredArgsConstructor;
 public class StartService {
     private final PrintWriter writer;
 
+    /**
+     * Starts the fractal image generation process by gathering input from the user
+     * and generating the fractal image with specified parameters.
+     */
     public void start() throws IOException {
         Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
@@ -57,51 +61,81 @@ public class StartService {
         generateAndSaveImages(fractalImage, configuration, numberOfThreads, imageFormat);
     }
 
+    /**
+     * Prompts the user to enter the width of the image and returns the input.
+     */
     private int getWidth(Scanner scanner) {
         writer.println("Please enter the width of the image: ");
         return scanner.nextInt();
     }
 
+    /**
+     * Prompts the user to enter the height of the image and returns the input.
+     */
     private int getHeight(Scanner scanner) {
         writer.println("Please enter the height of the image: ");
         return scanner.nextInt();
     }
 
+    /**
+     * Prompts the user to enter the count of points and returns the input.
+     */
     private int getCountOfPoints(Scanner scanner) {
         writer.println("Please enter count of points");
         return scanner.nextInt();
     }
 
+    /**
+     * Prompts the user to enter the number of iterations per point and returns the input.
+     */
     private int getIterations(Scanner scanner) {
         writer.println("Please enter the iterations per point");
         return scanner.nextInt();
     }
 
+    /**
+     * Prompts the user to enter the number of affine transformations and returns the input.
+     */
     private int getNumberOfAffineTransformations(Scanner scanner) {
         writer.println("Please enter the number of affine transformations");
         return scanner.nextInt();
     }
 
+    /**
+     * Prompts the user to enter the number of colors and returns the input.
+     */
     private int getNumberOfColors(Scanner scanner) {
         writer.println("Please enter the number of colors");
         return scanner.nextInt();
     }
 
+    /**
+     * Prompts the user to enter the number of symmetries and returns the input.
+     */
     private int getSymmetryCount(Scanner scanner) {
         writer.println("Please enter the number of symmetry");
         return scanner.nextInt();
     }
 
+    /**
+     * Prompts the user to enter the number of threads (single or multi-thread) and returns the input.
+     */
     private int getNumberOfThreads(Scanner scanner) {
         writer.println("Please enter the number (1 for singleThread, other for multiThread)");
         return scanner.nextInt();
     }
 
+    /**
+     * Prompts the user to enter the number of transformations and returns the input.
+     */
     private int getNumberOfTransformations(Scanner scanner) {
         writer.println("Please enter the number of transformations");
         return scanner.nextInt();
     }
 
+    /**
+     * Prompts the user to select transformations based on input and returns an array of transformations.
+     */
     private Transformation[] getTransformations(Scanner scanner, int numberOfTransformations) {
         writer.println("""
             Transformations:
@@ -125,6 +159,9 @@ public class StartService {
         return transformations;
     }
 
+    /**
+     * Prompts the user to enter the image format (png, jpeg, or bmp) and returns the selected format.
+     */
     private ImageFormat getImageFormat(Scanner scanner) {
         writer.println("Please enter the image format (png, jpeg or bmp): ");
         String format = scanner.next().toLowerCase();
@@ -135,10 +172,16 @@ public class StartService {
         };
     }
 
+    /**
+     * Creates a new FractalImage object with the specified resolution.
+     */
     private FractalImage createFractalImage(int xRes, int yRes) {
         return FractalImage.create(xRes, yRes);
     }
 
+    /**
+     * Creates a Configuration object with the specified parameters.
+     */
     private Configuration createConfiguration(
         int[] resolution, int countOfPoints, int iterations,
         int numberOfAffineTransformations, int numberOfColors, int symmetryCount, Transformation[] transformations
@@ -168,6 +211,9 @@ public class StartService {
             rect);
     }
 
+    /**
+     * Generates and saves the fractal image to disk.
+     */
     private void generateAndSaveImages(
         FractalImage fractalImage,
         Configuration configuration,
@@ -205,10 +251,16 @@ public class StartService {
 
     }
 
+    /**
+     * Saves the given fractal image to a file in the specified format.
+     */
     private void saveImage(FractalImage image, String path, ImageFormat imageFormat) throws IOException {
         ImageCreateService.save(image, Path.of(path), imageFormat.extension());
     }
 
+    /**
+     * Selects the transformation based on the given number.
+     */
     private Transformation selectTransformation(int n) {
         return switch (n) {
             case 1 -> new Disc();

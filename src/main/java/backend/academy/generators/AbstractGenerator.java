@@ -15,18 +15,30 @@ public abstract class AbstractGenerator {
     protected Configuration configuration;
     protected Pixel[][] data;
 
+    /**
+     * Initializes the generator with a given configuration and pixel data.
+     */
     public AbstractGenerator(Configuration configuration, Pixel[][] data) {
         this.configuration = configuration;
         this.data = data;
     }
 
+    /**
+     * Generates the fractal image by starting the rendering process and returning a new FractalImage.
+     */
     public FractalImage generateFractalImage() {
         startRendering(configuration.rect());
         return new FractalImage(data, configuration.resolution()[0], configuration.resolution()[1]);
     }
 
+    /**
+     * Abstract method to start rendering the fractal within the specified rectangle.
+     */
     protected abstract void startRendering(Rect rect);
 
+    /**
+     * Renders a single point on the fractal using the given random generator and coefficients.
+     */
     protected void renderOnePoint(
         Random random,
         double[][] coefficients,
@@ -85,6 +97,9 @@ public abstract class AbstractGenerator {
         }
     }
 
+    /**
+     * Updates the color of the given pixel, modifying its color based on the random selection.
+     */
     private void updatePixel(Random random, Pixel currPixel) {
         int k = random.nextInt(configuration.colors().length);
         if (currPixel.numberOfHits() == 0) {
@@ -101,6 +116,9 @@ public abstract class AbstractGenerator {
         currPixel.increaseHitCount();
     }
 
+    /**
+     * Transforms the point using a set of coefficients based on a specific transformation.
+     */
     private static Point transformPoint(Point point, double[][] coefficients, int i) {
         double x = point.x();
         double y = point.y();

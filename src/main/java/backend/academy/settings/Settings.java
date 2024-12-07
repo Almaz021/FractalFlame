@@ -2,6 +2,11 @@ package backend.academy.settings;
 
 import lombok.experimental.UtilityClass;
 
+/**
+ * The {@code Settings} class contains constant values used throughout the fractal generation process.
+ * These constants include gamma values, boundaries for the fractal image, RGB color settings, and coefficients
+ * used in affine transformations.
+ */
 @UtilityClass
 public class Settings {
     public static final double GAMMA = 1.2;

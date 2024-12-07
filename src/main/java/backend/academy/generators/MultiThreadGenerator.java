@@ -11,10 +11,16 @@ import java.util.concurrent.ThreadLocalRandom;
 @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
 public class MultiThreadGenerator extends AbstractGenerator {
 
+    /**
+     * Initializes the generator with the given configuration and pixel data.
+     */
     public MultiThreadGenerator(Configuration configuration, Pixel[][] data) {
         super(configuration, data);
     }
 
+    /**
+     * Starts the rendering process in multiple threads, each rendering a point on the fractal.
+     */
     @Override
     protected void startRendering(Rect rect) {
         int[] resolution = {configuration.resolution()[0], configuration.resolution()[1]};
@@ -22,6 +28,7 @@ public class MultiThreadGenerator extends AbstractGenerator {
         try (ExecutorService executorService =
                  Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())) {
 
+            // Execute multiple rendering tasks concurrently
             for (int num = 0; num < configuration.pointConfig()[0]; num++) {
                 executorService.execute(() -> renderOnePoint(
                     ThreadLocalRandom.current(),

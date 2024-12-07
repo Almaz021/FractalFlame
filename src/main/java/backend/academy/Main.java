@@ -6,6 +6,10 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import lombok.experimental.UtilityClass;
 
+/**
+ * Entry point for the fractal generation application.
+ * It initializes the service and handles exceptions.
+ */
 @UtilityClass
 public class Main {
     public static void main(String[] args) {

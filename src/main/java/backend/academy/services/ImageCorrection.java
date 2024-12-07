@@ -6,6 +6,9 @@ import backend.academy.interfaces.ImageProcessor;
 import backend.academy.settings.Settings;
 
 public class ImageCorrection implements ImageProcessor {
+    /**
+     * Applies image correction to adjust the brightness and color of the fractal image.
+     */
     @Override
     public FractalImage process(FractalImage image) {
         int xRes = image.xRes();
@@ -14,6 +17,7 @@ public class ImageCorrection implements ImageProcessor {
         double max = 0.0;
         double gamma = Settings.GAMMA;
 
+        /* Calculate the log-normalized values for the pixels */
         for (int row = 0; row < yRes; row++) {
             for (int col = 0; col < xRes; col++) {
                 if (pixels[row][col].numberOfHits() != 0) {
@@ -25,6 +29,7 @@ public class ImageCorrection implements ImageProcessor {
             }
         }
 
+        /* Adjust pixel color values based on normalized values */
         for (int row = 0; row < yRes; row++) {
             for (int col = 0; col < xRes; col++) {
                 pixels[row][col].normal(pixels[row][col].normal() / max);
