@@ -81,7 +81,7 @@ public class StartService {
      * Prompts the user to enter the count of points and returns the input.
      */
     private int getCountOfPoints(Scanner scanner) {
-        writer.println("Please enter count of points");
+        writer.println("Please enter count of points: ");
         return scanner.nextInt();
     }
 
@@ -89,7 +89,7 @@ public class StartService {
      * Prompts the user to enter the number of iterations per point and returns the input.
      */
     private int getIterations(Scanner scanner) {
-        writer.println("Please enter the iterations per point");
+        writer.println("Please enter the iterations per point: ");
         return scanner.nextInt();
     }
 
@@ -97,7 +97,7 @@ public class StartService {
      * Prompts the user to enter the number of affine transformations and returns the input.
      */
     private int getNumberOfAffineTransformations(Scanner scanner) {
-        writer.println("Please enter the number of affine transformations");
+        writer.println("Please enter the number of affine transformations: ");
         return scanner.nextInt();
     }
 
@@ -105,7 +105,7 @@ public class StartService {
      * Prompts the user to enter the number of colors and returns the input.
      */
     private int getNumberOfColors(Scanner scanner) {
-        writer.println("Please enter the number of colors");
+        writer.println("Please enter the number of colors: ");
         return scanner.nextInt();
     }
 
@@ -113,7 +113,7 @@ public class StartService {
      * Prompts the user to enter the number of symmetries and returns the input.
      */
     private int getSymmetryCount(Scanner scanner) {
-        writer.println("Please enter the number of symmetry");
+        writer.println("Please enter the number of symmetry: ");
         return scanner.nextInt();
     }
 
@@ -121,7 +121,7 @@ public class StartService {
      * Prompts the user to enter the number of threads (single or multi-thread) and returns the input.
      */
     private int getNumberOfThreads(Scanner scanner) {
-        writer.println("Please enter the number (1 for singleThread, other for multiThread)");
+        writer.println("Please enter the number (1 for singleThread, other for multiThread): ");
         return scanner.nextInt();
     }
 
@@ -129,7 +129,7 @@ public class StartService {
      * Prompts the user to enter the number of transformations and returns the input.
      */
     private int getNumberOfTransformations(Scanner scanner) {
-        writer.println("Please enter the number of transformations");
+        writer.println("Please enter the number of transformations: ");
         return scanner.nextInt();
     }
 
