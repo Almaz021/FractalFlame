@@ -10,7 +10,7 @@ public class Settings {
     public static final double Y_MIN = -2.2;
     public static final double Y_MAX = 2.2;
 
-    public static final int COEFFICIENTS_COUNT = 9;
+    public static final int COEFFICIENTS_COUNT = 6;
     public static final int COEFFICIENT_A_INDEX = 0;
     public static final int COEFFICIENT_B_INDEX = 1;
     public static final int COEFFICIENT_C_INDEX = 2;
