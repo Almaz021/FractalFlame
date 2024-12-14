@@ -40,6 +40,10 @@ public class MultiThreadGenerator extends AbstractGenerator {
         }
     }
 
+    /**
+     * Handles the update of the pixel at the given coordinates by modifying its color
+     * based on a random selection, and ensures thread-safety using synchronization.
+     */
     @Override
     protected void handlePixelUpdate(int x, int y, Random random) {
         Pixel currPixel = data[y][x];

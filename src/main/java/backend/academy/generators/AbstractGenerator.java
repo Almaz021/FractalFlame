@@ -46,44 +46,64 @@ public abstract class AbstractGenerator {
         int[] resolution
     ) {
 
+        Point point = generateRandomPoint(random);
+
+        for (int step = -Settings.SKIP_STEPS_COUNT; step < configuration.pointsConfig().iterations(); step++) {
+            point = pointTransformation(random, coefficients, point);
+            if (step >= 0) {
+                applySymmetryAndRenderPoint(point, symmetryCount, resolution, random);
+            }
+        }
+    }
+
+    /**
+     * Generates a random point.
+     */
+    private Point generateRandomPoint(Random random) {
         double newX =
             random.nextDouble(configuration.rect().x(), configuration.rect().x() + configuration.rect().width());
         double newY =
             random.nextDouble(configuration.rect().y(), configuration.rect().y() + configuration.rect().height());
+        return new Point(newX, newY);
+    }
 
-        Point point = new Point(newX, newY);
+    /**
+     * Applies a random transformation to the given point based on the specified coefficients.
+     */
+    private Point pointTransformation(Random random, double[][] coefficients, Point point) {
+        int i = random.nextInt(coefficients.length);
+        int j = random.nextInt(configuration.transformations().length);
 
-        for (int step = -Settings.SKIP_STEPS_COUNT; step < configuration.pointsConfig().iterations(); step++) {
-            int i = random.nextInt(coefficients.length);
-            int j = random.nextInt(configuration.transformations().length);
+        Point resultPoint = transformPoint(point, coefficients, i);
+        resultPoint = configuration.transformations()[j].apply(resultPoint);
+        return resultPoint;
+    }
 
-            point = transformPoint(point, coefficients, i);
-            point = configuration.transformations()[j].apply(point);
+    /**
+     * Applies symmetry to the given point and renders it if it's within the valid rectangle.
+     */
+    private void applySymmetryAndRenderPoint(Point point, int symmetryCount, int[] resolution, Random random) {
+        double newX = point.x();
+        double newY = point.y();
 
-            newX = point.x();
-            newY = point.y();
+        double theta2 = 0.0;
 
-            double theta2 = 0.0;
+        for (int s = 0; s < symmetryCount; s++) {
+            theta2 += ((2 * Math.PI) / symmetryCount);
+            double xRot = newX * Math.cos(theta2) - newY * Math.sin(theta2);
+            double yRot = newX * Math.sin(theta2) + newY * Math.cos(theta2);
 
-            if (step >= 0) {
-                for (int s = 0; s < symmetryCount; s++) {
-                    theta2 += ((2 * Math.PI) / symmetryCount);
-                    double xRot = newX * Math.cos(theta2) - newY * Math.sin(theta2);
-                    double yRot = newX * Math.sin(theta2) + newY * Math.cos(theta2);
+            if (!configuration.rect().contains(new Point(xRot, yRot))) {
+                continue;
+            }
 
-                    if (!configuration.rect().contains(new Point(xRot, yRot))) {
-                        continue;
-                    }
+            int x1 =
+                (int) ((xRot - configuration.rect().x()) / (configuration.rect().width()) * resolution[0]);
+            int y1 =
+                (int) ((yRot - configuration.rect().y()) / (configuration.rect().height()) * resolution[1]);
 
-                    int x1 =
-                        (int) ((xRot - configuration.rect().x()) / (configuration.rect().width()) * resolution[0]);
-                    int y1 =
-                        (int) ((yRot - configuration.rect().y()) / (configuration.rect().height()) * resolution[1]);
-
-                    if (x1 < resolution[0] && y1 < resolution[1] && x1 > 0 && y1 > 0) {
-                        handlePixelUpdate(x1, y1, random);
-                    }
-                }
+            if (x1 < resolution[0] && y1 < resolution[1] && x1 > 0 && y1 > 0) {
+                handlePixelUpdate(x1, y1, random);
             }
         }
     }
