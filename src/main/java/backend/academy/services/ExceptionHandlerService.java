@@ -12,5 +12,8 @@ public class ExceptionHandlerService {
      */
     public void handleException(Exception e) {
         log.error(e.getMessage());
+        for (StackTraceElement element : e.getStackTrace()) {
+            log.error("  at {}", element);
+        }
     }
 }
