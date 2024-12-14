@@ -2,7 +2,9 @@ package backend.academy.services;
 
 import backend.academy.Configuration;
 import backend.academy.entities.FractalImage;
+import backend.academy.entities.PointsConfig;
 import backend.academy.entities.Rect;
+import backend.academy.entities.Resolution;
 import backend.academy.enums.ImageFormat;
 import backend.academy.generators.AbstractGenerator;
 import backend.academy.generators.CoefficientsGenerator;
@@ -54,8 +56,10 @@ public class StartService {
         Transformation[] transformations = getTransformations(scanner, numberOfTransformations);
 
         FractalImage fractalImage = createFractalImage(xRes, yRes);
+        Resolution resolution = new Resolution(xRes, yRes);
+        PointsConfig pointsConfig = new PointsConfig(countOfPoints, iterations);
         Configuration configuration = createConfiguration(
-            new int[] {xRes, yRes}, countOfPoints, iterations, numberOfAffineTransformations,
+            resolution, pointsConfig, numberOfAffineTransformations,
             numberOfColors, symmetryCount, transformations);
 
         generateAndSaveImages(fractalImage, configuration, numberOfThreads, imageFormat);
@@ -183,7 +187,7 @@ public class StartService {
      * Creates a Configuration object with the specified parameters.
      */
     private Configuration createConfiguration(
-        int[] resolution, int countOfPoints, int iterations,
+        Resolution resolution, PointsConfig pointsConfig,
         int numberOfAffineTransformations, int numberOfColors, int symmetryCount, Transformation[] transformations
     ) {
 
@@ -202,10 +206,9 @@ public class StartService {
 
         return new Configuration(
             resolution,
-            new int[] {countOfPoints, iterations},
+            pointsConfig,
             coefficients,
             colors,
-            numberOfColors,
             symmetryCount,
             transformations,
             rect);

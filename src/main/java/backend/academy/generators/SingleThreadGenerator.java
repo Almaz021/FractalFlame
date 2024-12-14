@@ -24,8 +24,8 @@ public class SingleThreadGenerator extends AbstractGenerator {
      */
     @Override
     protected void startRendering(Rect rect) {
-        int[] resolution = {configuration.resolution()[0], configuration.resolution()[1]};
-        for (int num = 0; num < configuration.pointConfig()[0]; num++) {
+        int[] resolution = {configuration.resolution().width(), configuration.resolution().height()};
+        for (int num = 0; num < configuration.pointsConfig().countOfPoints(); num++) {
             renderOnePoint(
                 random,
                 configuration.coefficients(),

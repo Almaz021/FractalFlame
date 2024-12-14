@@ -28,7 +28,7 @@ public abstract class AbstractGenerator {
      */
     public FractalImage generateFractalImage() {
         startRendering(configuration.rect());
-        return new FractalImage(data, configuration.resolution()[0], configuration.resolution()[1]);
+        return new FractalImage(data, configuration.resolution().width(), configuration.resolution().height());
     }
 
     /**
@@ -55,7 +55,7 @@ public abstract class AbstractGenerator {
 
         Point point = new Point(newX, newY);
 
-        for (int step = -Settings.SKIP_STEPS_COUNT; step < configuration.pointConfig()[1]; step++) {
+        for (int step = -Settings.SKIP_STEPS_COUNT; step < configuration.pointsConfig().iterations(); step++) {
             int i = random.nextInt(coefficients.length);
             int j = random.nextInt(configuration.transformations().length);
 

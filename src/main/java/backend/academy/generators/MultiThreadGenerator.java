@@ -23,13 +23,13 @@ public class MultiThreadGenerator extends AbstractGenerator {
      */
     @Override
     protected void startRendering(Rect rect) {
-        int[] resolution = {configuration.resolution()[0], configuration.resolution()[1]};
+        int[] resolution = {configuration.resolution().width(), configuration.resolution().height()};
 
         try (ExecutorService executorService =
                  Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())) {
 
             // Execute multiple rendering tasks concurrently
-            for (int num = 0; num < configuration.pointConfig()[0]; num++) {
+            for (int num = 0; num < configuration.pointsConfig().countOfPoints(); num++) {
                 executorService.execute(() -> renderOnePoint(
                     ThreadLocalRandom.current(),
                     configuration.coefficients(),
