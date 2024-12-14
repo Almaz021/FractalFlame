@@ -30,9 +30,7 @@ public class SingleThreadGenerator extends AbstractGenerator {
                 random,
                 configuration.coefficients(),
                 configuration.symmetryCount(),
-                resolution,
-                data,
-                false);
+                resolution);
         }
     }
 

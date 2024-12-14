@@ -35,9 +35,7 @@ public class MultiThreadGenerator extends AbstractGenerator {
                     ThreadLocalRandom.current(),
                     configuration.coefficients(),
                     configuration.symmetryCount(),
-                    resolution,
-                    data,
-                    true));
+                    resolution));
             }
         }
     }

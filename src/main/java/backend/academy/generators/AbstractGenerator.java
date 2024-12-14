@@ -43,9 +43,7 @@ public abstract class AbstractGenerator {
         Random random,
         double[][] coefficients,
         int symmetryCount,
-        int[] resolution,
-        Pixel[][] data,
-        boolean isMultithreaded
+        int[] resolution
     ) {
 
         double newX =
