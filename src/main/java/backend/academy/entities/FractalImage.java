@@ -8,14 +8,14 @@ public record FractalImage(Pixel[][] data, int xRes, int yRes) {
      * Creates a FractalImage with the specified resolution.
      */
     public static FractalImage create(int xRes, int yRes) {
-        Pixel[][] data = generateTable(yRes, xRes);
+        Pixel[][] data = generateTable(xRes, yRes);
         return new FractalImage(data, xRes, yRes);
     }
 
     /**
      * Generates a 2D table of pixels for the given resolution.
      */
-    private static Pixel[][] generateTable(int yRes, int xRes) {
+    private static Pixel[][] generateTable(int xRes, int yRes) {
         Pixel[][] data = new Pixel[yRes][xRes];
         for (int i = 0; i < yRes; i++) {
             for (int j = 0; j < xRes; j++) {
