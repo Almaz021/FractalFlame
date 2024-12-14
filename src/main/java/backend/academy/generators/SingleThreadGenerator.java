@@ -35,4 +35,11 @@ public class SingleThreadGenerator extends AbstractGenerator {
                 false);
         }
     }
+
+    @Override
+    protected void handlePixelUpdate(int x, int y, Random random) {
+        Pixel currPixel = data[y][x];
+        updatePixel(random, currPixel);
+    }
+
 }

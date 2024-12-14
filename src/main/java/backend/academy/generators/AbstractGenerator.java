@@ -83,24 +83,19 @@ public abstract class AbstractGenerator {
                         (int) ((yRot - configuration.rect().y()) / (configuration.rect().height()) * resolution[1]);
 
                     if (x1 < resolution[0] && y1 < resolution[1] && x1 > 0 && y1 > 0) {
-                        Pixel currPixel = data[y1][x1];
-                        if (isMultithreaded) {
-                            synchronized (data[y1][x1]) {
-                                updatePixel(random, currPixel);
-                            }
-                        } else {
-                            updatePixel(random, currPixel);
-                        }
+                        handlePixelUpdate(x1, y1, random);
                     }
                 }
             }
         }
     }
 
+    abstract void handlePixelUpdate(int x, int y, Random random);
+
     /**
      * Updates the color of the given pixel, modifying its color based on the random selection.
      */
-    private void updatePixel(Random random, Pixel currPixel) {
+    protected void updatePixel(Random random, Pixel currPixel) {
         int k = random.nextInt(configuration.colors().length);
         if (currPixel.numberOfHits() == 0) {
             int r = configuration.colors()[k][Settings.RGB_RED_INDEX];

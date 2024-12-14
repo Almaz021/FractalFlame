@@ -4,6 +4,7 @@ import backend.academy.Configuration;
 import backend.academy.entities.Pixel;
 import backend.academy.entities.Rect;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
@@ -40,4 +41,13 @@ public class MultiThreadGenerator extends AbstractGenerator {
             }
         }
     }
+
+    @Override
+    protected void handlePixelUpdate(int x, int y, Random random) {
+        Pixel currPixel = data[y][x];
+        synchronized (data[y][x]) {
+            updatePixel(random, currPixel);
+        }
+    }
+
 }
